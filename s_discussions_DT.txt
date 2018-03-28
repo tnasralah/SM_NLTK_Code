@@ -1,0 +1,125 @@
+The two companies are merging and will consolidate their apps under Glooko sometime in the future.http://www.healthline.com/diabetesmine/glooko-diasend-merger.
+As I understand it Diasend will go away eventually. We plan to integrate all of the best features from the current Diasend mobile and web apps into future versions 
+of the unified [Glooko] offering. Details of this  will be determined in the coming months there will be a transition period and all users will be informed well in 
+advance to ensure a timely transition and all its goodies will be put into Glooko. The Glooko product line including Glookos mobile and web applications will remain 
+and soon become greatly enhanced by the integration of numerous popular Diasend features  as well as their support for data uploads from those 140+ diabetes devices 
+including Animas and Tandem insulin pumps. I'm not familiar with Glooko but I used the Diasend site for a few years. I liked the fact that I could view meter CGM and
+pump data all in the same report. Via the pump's carb bolus feature I could also monitor my carb consumption. In addition Diasend rolled in exercise data from my 
+FitBit. Unfortunately due to some legal constraint Diasend could not display my exercise data gathered from FitBit as an overlay across the period of the day.
+I look forward to see what Glooko can do with this combo. I currently find the DexCom Clarity 14-day standard day report as the single best and concise display of 
+actionable data in an obvious and visible graphic.I'm all for removing all proprietary data sequestering by the various D-tech manufacturers.. Omnipod uses Glooko.  
+I have DL'd it for PC and my android phone.  It's the way we get our data (BG's Carbs Bolus/Basal rates) from our PDM to the Providers / Omnipod without the need of 
+scanning/faxing hard logs.  It's an auto update system.  Pretty cool actually and there is value in it so far that we've found!With regards to propietary data I look 
+at like this...if my data helps advance the cure or technology advances for T1 / T2 as a whole then I'm fine with data being provided (even though I'm speaking for 
+my toddler son right now...who may NOT be fine with it.).  But if the data isn't being used for advances then I'd not see any value and wouldn't be OK with it. I was
+ happy to see this comment in the linked article about Tidepool:We're also thrilled to see our friends at the non-profit open-source data group Tidepool sharing in the excitement about this merger -- despite their stance as would-be competitors."We want Glooko+Diasend to succeed" D-Dad and Tidepool founder Howard Look wrote on the company's blog. "Their success means the ecosystem we believe in is growing and sustaining. And we genuinely hope that our efforts will foster their success which will be for the good of the entire Diabetes Community."
+I wear an Apple Watch and am hopefully soon to again be using a Dexcom this time a G5.  Question to those that use this tech - can I pretty much put the receiver in a
+ drawer and ignore it?  Only use the phone & watch?  Will alarms work even when the two Apple devices are in Do Not Disturb mode or in Airplane mode?  Thanks for any 
+advice you could offer.. I use the iPhone exclusively and only take the receiver with me when I travel in case something happens to my phone.  The alarms still work 
+in airplane mode but I do not know about Do Not Disturb mode since I don't use that.. One of the improvements that Dexcom accomplished between the G4 and G5 systems 
+is that it eliminated the requirement to carry the Dex receiver. The G5 radio signal may be received by the Dex receiver and/or the iPhone.The Apple Watch however 
+needs the iPhone nearby to get its data signal. Unfortunately you may not dash out with only your CGM transmitter and Apple Watch and still follow your blood glucose 
+status. The Watch will stop displaying CGM data soon after it loses its connection with the paired iPhone.Not sure about your alarms question since I only used the G5
+ for a few months last year. I  use the G4. You will likely find that answer in the G5 Users' Guide.I find monitoring my blood glucose on my wrist much more convenient than either the Dex receiver or the iPhone app. Up until the Apple Watch came out a few years ago I preferred not to wear a watch. Now I find my BG information more useful than the time of day. I set up my watch to show the Dexcom app with BG info when I raise my wrist.. I don't have a watch but the phone alarms do work in do not disturb mode.  They work in airplane mode as long as you go back in and turn bluetooth on.. Is it still the case that the current Dexcom app on iPhone overrides the user's Do Not Disturb setting?Honestly this is probably the #1 single thing making me lean towards G4 over G5 when I get a Dexcom soon.  As a professional it's simply not acceptable to be unable to stop it from sounding loudly during an important meeting or presentation.. Yesthe G5 iPhone app overrides DND.  You can put it on vibrate so it does not alarm during your meeting. I like the fact it overrides DND because I can put my phone on DND overnight and still get alarms.. Just be aware that if you're someone from a 
+country using the mmol scale (rather than mg/dL) you'll be disappointed. I bought an Apple Watch intending to use this with the G5 and then found out Apple Watch 
+software is not available for mmol users. Given how long it's been since this became available for the mg/dL user base it appears that mmol users are a much lower 
+priority for Dexcom.. They work in airplane mode as long as you go back in and turn bluetooth on.Thanks for reminder to turn bluetooth back onhavent flown in a while!.
+Just be aware that if you're someone from a country using the mmol scale (rather than mg/dL) you'll be disappointed.I'm not going to defend Dexcom's slow response to 
+issuing an app for the Apple Watch that displays in mmol/L. I would feel the same if it were me waiting for the the system of blood glucose units that I think in. That
+being said for the last six months or so I started to include the mmol/L units when I write posts or comments here.I've known for a long time about the 1:18 ratio 
+between mmol/L and mg/dL but my writing experience has brought me one step closer to being able to think in mmol/L instead of mg/dL. What I'm trying to say in way 
+too many words is that thinking in another system of units is an acquired skill under your control not some D-tech company.When you consider blood glucose measurements 
+what's important are key thresholds that span from hypoglycemia to the low normal border to the middle range BG to the upper normal threshold to too high. In mmol/L 
+that would be < 3.0 for serious hypoglycemia 4.0 for low normal 6.0 for middle range BG 8.0 for upper normal and >10.0 as too high. In mg/dL that would be < 54 mg/dL 
+for hypo (that's the number recently designated by the American Diabetes Association as a "serious clinical" low 72 mg/dL for the low threshold 108 mg/dL for middle 
+range BG 144 mg/dL for upper normal and > 180 mg/dL as too high.I believe I could learn to think in the mmol/L system with a little practice and without too much 
+effort. I'm thinking the reverse might also be true. Now I get the irony of an American telling the rest of the world to adapt when we've failed to adapt to the 
+much more sensible metric system. But the change I'm recommending rewards you with the ability to use the Apple Watch and seeing your BG on your wrist. In addition
+ I think a little bit of arithmetic keeps the brain sharp. What do you think?. Thanks Terry. All true but there's a few other issues to consider.Firstly it means 
+you'd not have the option to use the Dexcom receiver as these are fixed in either mmol or mg/dL rather than being an option changed in settings. I've found the 
+iPhone very flaky compared to the receiver so no longer having the option isn't ideal. Secondly I do worry that if I'd had my eye off things and got a low BS the
+ added cognitive load of converting would be an issue (I've been working in mmols for over 30 years). And of course cognitive function and confusion are very much
+ affected by hypos. My family around me is also accustomed to mmols and getting them accustomed to a new scale isn't something I'd want to chance in the unlikely 
+event that if need their help. And while it's possible to figure out some way to get a US Apple ID to be able to download the US/mg/dL iOS version its by no means 
+simple.... Thanks all for the feedback.  While I was using the Dexcom Share I found it extremely frustrating dealing with false alarms during sleeping hours.  
+So much so that I put it away in another room one night and didn't go back to get it for a couple of weeks.  Yep.  So being able to silence all but the most 
+critical notifications (I believe that's <55) is important for my continued use.  I'm going to read the manual in detail before going forward.  Thanks for that 
+link!I have the watch and am liking it quite a bit for the activity functions.  Nofications and alarms are easily silenced.  And it feeds my inner geek.  
+It's the CGM component I'm not sure about at this point.. Yesthe G5 iPhone app overrides DND.  You can put it on vibrate so it does not alarm during your meeting. 
+I like the fact it overrides DND because I can put my phone on DND overnight and still get alarms.Not to hijack this AW thread but I think your reply raised an 
+important distinction I wasnt aware of.  Could someone please confirm if both of the following statements are true when using G5 with iPhone?1: When the phone 
+is in DND mode high or low BG results in an audible alarm2: When the phone is in Vibrate mode high or low BG results in a vibrate-only alertThanks. 
+You make good points about staying with a system of blood glucose units that's familiar to you. Your concern with cognitive impairment while low and your 
+first responders fluency in mmol/L are both important.I hope Dexcom takes up this issue soon for your sake.. Not quite Spectra. You go into the Dexcom app  
+on your phone to set whether or not it alarms or vibrates.  Then that is what will happen when your phone is either in DND or vibrate.  Note that the app 
+only works when bluetooth is on. Bluetooth does run down your phone battery.. Thanks Terry.  I'm a drop in the ocean.  It's easy to forget that outside of 
+the US many countries use the mmol standard including Canada the UK France Australia China to name but just a handful.. In trying to sort the alarm thing 
+out I was looking at the Dexcom G5 app in the Apple app store  The reviews are well interesting.  There is a lot of moaning and gnashing of teeth over the 
+fact the alarms can't be silenced.  Then one person comes in pointing out the 3 bar menu in the upper left hand corner and how there are settings to fine 
+silence/vibrate all but the most critical meaning the <55 alarms. His tone was a bit caustic but amusing nevertheless.  So I'll know more when I actually install 
+and setup the iPhone & Apple Watch.  Waiting on Medicare at this point.  I lost my G4 when I turned 65.  Thanks for all the generous advice given to my queery.
+I have a G5. You can turn off all of the alarms except the critical low (<55) and you can put them all on vibrate except the critical low. Thank you.
+Hey everyoneI just got my first CGM yesterday (a Dexcom G5).  However my experience so far has been pretty poor.Once I got booted up and running around 4 pm I had 
+a small snack and bolus.  Shortly after it showed my BG jumping well over the 200 range.  I waited it out for it to drop then had dinner a few hours later and it 
+again shot above the 200 range sitting there an hour or so and then dropping to sit around 130.  This was pretty unusual as my last reading over 200 was almost 2 weeks
+ ago and it was an anomaly.Before I went to bed I tested with my regular glucose monitor when my CGM was still sitting at 130 and found out that I was actually at 68.
+So I went to bed interested to see my overnight pattern but several hours of data were lost due to a signal loss even though my phone was sitting on the night stand 
+right next to me all night (I am using my phone to track btw).This morning I recalibrated again and while it wasnt off by as large of a margin as last night it was
+ still reading about 20 below what I was really at.  Less than an hour after I recalibrated and ate breakfast it set off an alarm for low glucose reading 68.  I tested
+ and found that I was really at 85.Is this what its supposed to be like or is something going wrong here?. You have to remember that there is a margin of error for 
+your meter as well as the CGM so 20 point difference isnt too abnormalespecially in the first 48 hours of use.  Getting great accuracy is somewhat of an art.Some key 
+points to remember for using the CGM:Your nighttime signal loss could be issues with your device but likely just that your body covered the sensor.  You could consider
+ a different location.Not sure if you have had this issue yet but if you put pressure on the sensor (laying on it) it will give false lows or even highs.Only calibrate
+ when your BG is stable.Do not over calibrate.  Only 1 time every 12 hrs unless greater than 20% difference when BG is stable.Official Dexcom statement:"and whenever 
+the sensor is inaccurate. Inaccuracy is defined as when the difference between your sensor glucose reading and blood glucose value is greater than 20% of the blood 
+glucose reading and blood glucose value is greater than 20% of the blood glucose value for sensor readings > 80mg/dL or greater than 20 points for sensor readings < 80
+ mg/dL. "Hope this helps. Sounds pretty normal to me. Normal in the sense that I have seen such behavior many times. I also had sensors which were spot-on from day one.
+ Each sensor is different. I always start out not trusting the CGM at all. I use its readout to predict my BG result. As predictions get better I increase the time 
+between finger sticks. If predictions get worse I decrease the time between finger sticks.. Hi Josh! Congrats on your first CGM!If what you describe is activity that 
+happened within the first two days of a sensor start I would not be discouraged at all. I agree with what both @Bradford1 and @Helmut have stated. For any new sensor 
+my son Caleb starts up we are very careful for its first day or so. If we see a number or trend we think is off he checks. Each sensor needs to earn trust and almost 
+all of them get there pretty quickly.Nighttime - we dont have issues at night - knock wood. Lots of people talk about false pressure issues. Maybe we have them and Im 
+just not paying close attention or I wait it out and all is well. Caleb does tend to get ??? more at night (early morning hours) when a sensor gets old. But otherwise
+ nighttime is good. We get occasional signal loss messages even when his phone is right with him but thats rare as well.What are you thinking about the rises after you
+ eat? Do you think they are not accurate? One of the first things we found very eye opening and useful when Caleb started using a CGM eight years ago was seeing exactly
+ how his body reacting to eating and how it varied based upon what we was eating. We changed our insulin strategy based upon this information - using super bolus 
+techniques for certain meals for example. I also find that when there are rapid rises and falls dexcom can take a little time to catch up or its margin or error 
+is off a little more than when bgs are more stable. This is particularly true for highs.I think youll get into a groove and begin trusting it with more time. 
+We find its really quite reliable and we do dose off of its readings once we are comfortable with each sensor.Good luck and please report back!. 
+My first CGM was NOT a Dexcom but the experience of the other CGM required me to do all the things that helped make my Dexcom as accurate as it can be.
+Preparation: Preparing my site for sensor placement. Not only do I wipe it down with an alcohol pad I put a hydrocolloid bandage on the site before that so 
+I have a barrier between me and the sensor. The bandage helps keep sweat away from my sensor. This helps my sensor to be more accurate and my site to be less itchy.
+ This becomes important when you want to wear your sensor for longer than a week.Placement: Somewhere that I dont sleep on it for comfort and good readings.
+Coverage: I use Opsite Flex-Fix to protect my sensor from water coming into it. My receiver shows a LOT more ??? when I get water on it. It just does.
+Conscious Forgetfulness: This refers to the ability to both remember that I have my sensor (and transmitter) on my bodyand where it is-- and at the same time not be 
+annoyed by having to remind myself. Youll get used to protecting your site without even thinking about eventually.I would also say that the CGM is really for trends.
+ I can take a BG meter reading if I want to know what my blood glucose is at a certain moment in time. The CGM can tell me where Im going. It takes a few readings 
+from the meter to do that.. As predictions get better I increase the time between finger sticks. If predictions get worse I decrease the time between finger sticks.
+I like this Helmut. @Josh_H I realize that a lot has been written about the G5s ability to serve as a basis for treatment without a confirming fingerstick. 
+But the manual also says that if you have any reason to doubt the G5 number confirm with a fingerstick before proceeding.The first day of a sensor is often less 
+dependable than later.Each sensor needs to earn trust and almost all of them get there pretty quickly.Dont be afraid to stop and check with a fingerstick especially
+ in the first 24 hours.  When your CGM indicated a jump to over 200 (11.1 mmol/L) did you check with a fingerstick? Did you do something to help drive down the glucose
+ level like exercise or take a correction bolus? These types of decisions especially on sensor day one are best made with a confirming fingerstick. Once a sensor earns
+ your trust youll be able to make decisions on sensor data alone.CGM technology has been a boon to most people who try it but you learn pretty quickly that it cant be
+ depended upon 100% of the time. You will learn this quickly as you live with the sensor 24/7.Welcome to the CGM world. Its been one of the best tools I use to manage
+ my diabetes. Stick with it and act on what its telling you and you will be rewarded with better less variable glucose levels.. Something that might be found interesting
+ - some people soak their sensors prior to starting them. When they know they are ready for a sensor change they insert a new sensor with an old transmitter a day or so
+ before shutting down their current sensor. This gives the sensor a good amount of time to soak and they find accuracy more reliable when they go live w it.. Be patient.
+ Although Dexcom usage is mostly straightforward there is still a learning curve to being successful with a CGM. Youll find that a few months from now youll be an expert
+ and of course youll have lots of good results before then. I have used CGMs for 9 years and am still learning.. Hey LorraineThe rises that I saw yesterday just seemed 
+to stay too high for too long compared to what Id seen with normal finger stick readings.  I can understand it peaking high shortly after eating but after 2 hours I 
+hadnt seen a 200+ number in a very long time and the meal I had didnt make sense for that type of reaction.  However seeing a 130 on the CGM and 68 on my regular meter
+ when I went to sync it up was what really threw me off.That being said I guess it is just due to being within the first 48 hours as others have said.So far today 
+my readings have been a lot closer in line with what I would expect.. Josh when you went to sync was the CGM showing flat and straight or was it showing up/down ?. 
+That being said I guess it is just due to being within the first 48 hours as others have said.So far today my readings have been a lot closer in line with what 
+I would expect.Its worth mentioning that this sounds like what Ive experienced when Ive hit a capillary on initial insertion. It can really throw things off 
+in the first day much more than the 48-hour variability were told to expect. The needle is very fine so it doesnt necessarily hurt the way it does when you 
+hit one with a syringe or infusion set but when I see really unexpected readings on the first day (e.g. a strenuous long bike ride where my CGM stayed pegged 
+at 170 and when I got home and did a finger stick it was heading into hypo territory) I tend to suspect this may be the case. Sometimes you can confirm it by
+ looking for the tell-tale discoloration of blood under the sticky patch but the transmitter holder is big enough that a small bleed can be hidden under it.
+ There have been times when I suspected this problem but only had it confirmed when pulling the patch off for the next sensor. The first time it happened to 
+me (the aforesaid biking example) I could see it had bled and pulled the sensor thinking I had to replace it but in fact that was a waste of a good sensorI 
+later learned that the erratic readings will usually settle out after a day or two.. When I synced it for the first time it was just starting to straighten out 
+to the 130-120 range after it had trended downwards from from 200+.. I have off numbers like this all the time with Dex. Its still something I cant live without 
+but you have to expect it will be very off at times and never bolus or do anything based on Dex unless you have also done a finger stick or two. I have learned 
+that for myself anyway.
