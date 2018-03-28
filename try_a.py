@@ -1,58 +1,72 @@
-## playing with gutenberg corpus and carroll_alice text
+## playing with gutenberg corpus and diabetes text
 ## some basic analysis and exploration and plotting
-## could read and strip sentence from diabetes but unsuccessful to create corpora
+## could read and strip sentence from diabetes but unsuccessful to create corpora (so , we put our files inside gutenberg and it magically works)
+## could show the plot of occurance of word (useful for exp. data analysis) and also performed POS tagging.
+## Have demo from US president saying "America" and "Citizen" , so that we can use same concept to show the occurance of word on a grouped tweets or discussions
 
 import nltk
 import matplotlib
+from nltk.corpus import gutenberg
 
 
 # Now that we've downloaded all the NLTK corpus content, let us go ahead and
-# load in the text from Lewis Carroll's "Alice in Wonderland" via Gutenberg:
+# load in the text from s_discussions_DT" via Gutenberg:
 from nltk.text import Text
-alice = Text(nltk.corpus.gutenberg.words('carroll-alice.txt'))
+discuss = Text(nltk.corpus.gutenberg.words('s_discussions_DT.txt'))
+
+#converting every words to lower case
+discuss = nltk.Text(word.lower() for word in discuss)
+print(discuss)
 #with open('C:\\nltk_data\corpora\diabetes\s_discussions_DT.txt', 'r') as myfile:
-#    alice=myfile.read()
+#    discuss=myfile.read()
+
+## tagging every words into POS
+from nltk import word_tokenize
+sample_text=gutenberg.raw("s_discussions_DT.txt")
+text = word_tokenize(sample_text)
+print(nltk.pos_tag(text))
+
+## Lemmatization
+#from nltk.stem import WordNetLemmatizer
+#lemmatizer = WordNetLemmatizer()
+#print(lemmatizer.lemmatize(sample_text))
+
+## Replacing synonyms
+#from replacers import WordReplacer
+#replacer = WordReplacer({'bday': 'birthday'})
+#replacer.replace('bday')
 
 # NLTK also provides other texts from Gutenberg. We can view those by
 # running the following command:
 print(nltk.corpus.gutenberg.fileids())
 
-# Word Count: How many words are contained in "Alice in Wonderland"?
-# Note that this includes punctuation as well as traditional words.
-print(type(alice))
-print(len(alice))
+print(type(discuss))
+print(len(discuss))
 
 # count the word "the" on each occurrence.
-print(len(set(alice)))
+print(len(set(discuss)))
 
 # Specific Word Count: How many times does a specific word occur
 # in a text?
-print(alice.count("Alice"))
+print(discuss.count("technology"))
 
 # Concordance: Shows occurence of word in context of use.
-# We can check where the term "alice" appears in "Alice in Wonderland".
-alice.concordance("diabetes")
+discuss.concordance("diabetes")
 
 # Dispersion Plot: Location of where a word is in the text.
 # Example:
-#   Give a visual representation of where the words "Alice", "Rabbit",
-#   "Hatter", and "Queen" appear in "Alice in Wonderland".
-alice.dispersion_plot(["Alice", "Rabbit", "Hatter", "Queen"])
-
-# The word "Alice" is consistently used throughout the entire text, while
-# the word "Queen" is found closer to the end of the text. This makes sense,
-# since Alice does not encounter the Red Queen until later in the book.
+#   Give a visual representation of where the words "discuss", "Rabbit",
+#   "Hatter", and "Queen" appear in "discuss in Wonderland".
+discuss.dispersion_plot(["diabetes", "type", "technology", "sensor"])
 
 # Frequency Distributions: What are the most frequent words (specifically,
 # tokens), that are used in a given text.
-# Example:
-#   Generate the most frequent tokens in "Alice in Wonderland":
 
 # First, use NLTK to generate a frequncy distribution dictionary-like object.
-fdist = nltk.FreqDist(alice)
+fdist = nltk.FreqDist(discuss)
 
-# What are the top 50 most common words in "Alice in Wonderland"?
-fdist.plot(50, cumulative=True, title="50 most common tokens in Alice in Wonderland")
+# What are the top 50 most common words in "discuss in Wonderland"?
+fdist.plot(50, cumulative=False, title="50 most common tokens in s-discussions_DT")
 
 # Observe that the x-axis consists of punctuation, which may not
 # be precisely what we are going for. It is possible to remove this
@@ -61,7 +75,7 @@ fdist_no_punc = nltk.FreqDist(
         dict((word, freq) for word, freq in fdist.items() if word.isalpha()))
 
 fdist_no_punc.plot(50,
-                   cumulative=True,
+                   cumulative=False,
                    title="50 most common tokens (no punctuation)")
 
 # This plot gives us a bit more useful information, but it still contains an
@@ -78,54 +92,42 @@ fdist_no_punc_no_stopwords = nltk.FreqDist(
 
 # Replot fdist after stopwords filtered out.
 fdist_no_punc_no_stopwords.plot(50,
-                                cumulative=True,
+                                cumulative=False,
                                 title="50 most common tokens (no stopwords or punctuation)")
+
 
 ################################################################################
 # We shall pepper in a few NLP terms from time to time to reduce the
 # overwhelm of encountering too many new terms all at once.
 
-# Hapaxes: Words that occur exactly once in the text.
-# https://en.wikipedia.org/wiki/Hapax_legomenon
 print(fdist.hapaxes())
 
 # Collocations: A pair or group of words that are habitually juxtaposed.
-# https://en.wikipedia.org/wiki/Collocation
-# A general example may be "red wine". In the context of "Alice in Wonderland",
-# a more specific example may be something like "Red Queen" or "White Rabbit".
-print(alice.collocations())
+print(discuss.collocations())
 
 ################################################################################
-# Recall in Part 1, we ran the following command:
-# nltk.download()
-# This command was responsible for downloading various collections of text that
-# we can use to run various NLP functions on. Thus far, we have made use of the
-# Gutenberg collection of text to read in "Alice in Wonderland".
-
-# There are a few more things to note about how one may access the Gutenberg data.
-
 # Get words from text (what we did in Part 1):
-alice_words = nltk.corpus.gutenberg.words('carroll-alice.txt')
+discuss_words = nltk.corpus.gutenberg.words('s_discussions_DT.txt')
 # Note that Python does not print out the entire list or words. The ellipsis
 # (...) sequence denotes that there is more content that is supressed from output.
-print(alice_words)
+print(discuss_words)
 
-# Get characters from "Alice in Wonderland":
-alice_chars = nltk.corpus.gutenberg.raw('carroll-alice.txt')
-print(alice_chars)
+# Get characters from "discussion":
+discuss_chars = nltk.corpus.gutenberg.raw('s_discussions_DT.txt')
+print(discuss_chars)
 
-# Get sentences from "Alice in Wonderland":
-alice_sents = nltk.corpus.gutenberg.sents('carroll-alice.txt')
-print(alice_sents)
+# Get sentences from "discussion":
+discuss_sents = nltk.corpus.gutenberg.sents('s_discussions_DT.txt')
+print(discuss_sents)
 
-# With the above chars, words, and sentences extracted from "Alice in Wonderland",
+# With the above chars, words, and sentences extracted from "discussion",
 # we can make use of these to calculate some cursory information on the text:
 
 # Average word length:
-print(int(len(alice_chars) / len(alice_words)))
+print(int(len(discuss_chars) / len(discuss_words)))
 
 # Average sentence length:
-print(int(len(alice_words) / len(alice_sents)))
+print(int(len(discuss_words) / len(discuss_sents)))
 
 # Let us turn the above two metrics into functions, and determine the average
 # word length and sentence length of all the texts in the Gutenberg collection.
@@ -137,88 +139,6 @@ def avg_word_len(num_chars, num_words):
 
 def avg_sent_len(num_words, num_sents):
     return int(num_words/num_sents)
-
-for file_id in nltk.corpus.gutenberg.fileids():
-    num_chars = len(nltk.corpus.gutenberg.raw(file_id))
-    num_words = len(nltk.corpus.gutenberg.words(file_id))
-    num_sents = len(nltk.corpus.gutenberg.sents(file_id))
-
-    print(file_id +
-          " has an average word length of " +
-          str(avg_word_len(num_chars, num_words)) +
-          " and an average sentence length of " +
-          str(avg_sent_len(num_words, num_sents)))
-
-# Sentence length tends to vary, while word length among all of these texts
-# is consistent.
-
-# Note that the gutenberg fileids only have a small subset of text compared
-# to the large amount of content found on Project Gutenberg.
-
-# If you wish to process a text from Project Gutenberg accessed via the web,
-# one may use the urllib module to import via the internet.
-from urllib.request import urlopen
-
-# This URL corresponds to "The Picture of Dorian Grey" by Oscar Wilde.
-url = "https://www.gutenberg.org/cache/epub/174/pg174.txt"
-raw = urlopen(url).read().decode('utf-8')
-
-# Once the raw content has been extracted, we convert this content to something
-# that NLTK can understand and process. This should look somewhat familiar if
-# you have consulted Part 1 of this tutorial.
-dorian_grey = nltk.Text(nltk.word_tokenize(raw))
-
-# Once the text has been converted to an NLTK Text object, we can process it
-# just like we have been doing previously. For example, here we convert the
-# text object to a frequency distribution and calculate the hapaxes.
-fdist_dorian = nltk.FreqDist(dorian_grey)
-print(fdist_dorian.hapaxes())
-
-# The above approach is not limited to text from Project Gutenberg, but is
-# broadly applicable to any text that can be obtained from a direct URL.
-
-# Let us consider another text resource that NLTK allows us to process. One of
-# them is various web and chat data. The first one we shall focus on his
-# web text.
-
-# We can print out the file ids of the webtext collection to see what is provided:
-for file_id in nltk.corpus.webtext.fileids():
-    print(file_id)
-
-# We see a list of text files. For more information on the content of each of these
-# file, you can consult:
-# https://github.com/teropa/nlp/tree/master/resources/corpora/webtext
-
-# Very briefly:
-# firefox.txt: Firefox support forum.
-# grail.txt: Movie script from "Monty Python and the Holy Grail".
-# overheard.txt: Overheard conversation in New York.
-# pirates.txt: Movie script from Pirates of the Caribean.
-# singles.txt: Singles ad.
-# wine.txt: "Fine Wine Diary" reviews.
-
-# Observe that many of the ways in which we access and processed text from
-# gutenberg carry over into processing the webtext data. This is a common
-# theme for all of the text resources provided by NLTK, and makes it easier
-# to apply functionality for one text resource to another in a general fashion.
-num_grail_words = len(nltk.corpus.webtext.words('grail.txt'))
-num_grail_chars = len(nltk.corpus.webtext.raw('grail.txt'))
-num_grail_sents = len(nltk.corpus.webtext.sents('grail.txt'))
-
-print(avg_word_len(num_grail_chars, num_grail_words))
-print(avg_sent_len(num_grail_words, num_grail_sents))
-
-# Inaugural Address Corpus:
-
-# This is a collection of presidential inaugural addresses; the speech that the
-# president makes prior to officially starting their term in office.
-
-# Let us print out the files provided to us via the inaugural corpus:
-for file_id in nltk.corpus.inaugural.fileids():
-    print(file_id)
-
-# Each file consists of the format: X-Y, where X is the four digit year, and
-# Y is the last name of the president giving the inaugural address.
 
 # Let us loop through each address. While doing so, let us keep a running tally
 # of the number of times the word "America" is used in each address.
