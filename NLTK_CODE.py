@@ -1,5 +1,5 @@
 '''
-This Code provide a tutorial for NLTK ( The Code has 18 parts (1-18) that implement different tasks
+This Code provide a tutorial for NLTK ( The Code has 19 parts (1-19) that implement different tasks
 The Code videos can be found in the following link:
 
 https://www.youtube.com/watch?v=FLZvOKSCkxY&list=PLQVvvaa0QuDf2JswnfiGkliBInZnIC4HL
