@@ -43,7 +43,10 @@ class RegexpReplacer(object):
 			s = re.sub(pattern, repl, s)
 		return s
 
-
+replacer = SpellingReplacer()
+print (replacer.replace('cookbok'))  #cookbook
+	
+	
 class RepeatReplacer(object):
     def __init__(self):
         self.repeat_regexp = re.compile(r'(\w*)(\w)\2(\w*)')
