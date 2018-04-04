@@ -92,7 +92,6 @@ print(replacer.replace('The ball is on the floooor')) ## works well for ball # i
 ## Looks like to correct some of structure like looove, we are doing it at greater expense.... :(
 
 
-
 # Word tokenization for every documents into words..
 # Rather than tokenizing, this below approach works pretty well and also do spelling correction on the flow
 words=[]
@@ -108,10 +107,10 @@ for i in range(0,cnt):
     new_doc[i] = [replacer.replace(words) for words in new_doc[i]]
     # checking and correcting spelling
     new_doc[i] = [sp_replacer.replace(words) for words in new_doc[i]]
-## Working well poooor replaced to por but also small to smal, cannot to canot
+## Working well poooor replaced to poor but also small to small, cannot to canot
 
 ##################################################################################
-## 3. Now, the next things is to do the spelling corrrection
+## 3. Now, the next things is to do the spelling correction
 import enchant
 from nltk.metrics import edit_distance
 
@@ -145,7 +144,7 @@ print(spell('Dog jmups'))       # Doesn't works so, same problem
 
 
 ## Implementing in our document
-# Already implemented along with  2
+# Already successfully implemented along with  2
 
 ###########################################
 # 4. Replacing of https:// or www. to word referred as 'url'
