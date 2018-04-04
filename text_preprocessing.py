@@ -98,17 +98,18 @@ words=[]
 
 
 for i in range(0,cnt):
-    # Removing html address referred
+    #Removing html address referred
     new_doc[i]=re.sub(r'http\S+', 'url', new_doc[i])
     new_doc[i]=re.sub(r'www\S+', 'url', new_doc[i])   #successfully replaced
-    # separating into words based on white space
+    #separating into words based on white space
     new_doc[i]= re.findall(r'\w+', new_doc[i])
-    # replacing looove to love
+    #replacing looove to love
     new_doc[i] = [replacer.replace(words) for words in new_doc[i]]
-    # checking and correcting spelling
+    #checking and correcting spelling
     new_doc[i] = [sp_replacer.replace(words) for words in new_doc[i]]
-## Working well poooor replaced to poor but also small to small, cannot to canot
-
+    # Working well poooor replaced to poor but also small to small, cannot to canot
+    print(nltk.pos_tag(new_doc[i]))
+    # So, successfully tagged for every word in every discussions in document
 ##################################################################################
 ## 3. Now, the next things is to do the spelling correction
 import enchant
@@ -151,4 +152,12 @@ print(spell('Dog jmups'))       # Doesn't works so, same problem
 # Implemented in 2 before repeat eliminator and spell checkers
 
 ##########################################
-# 5.
+# 5. POS tagging
+import nltk
+#text = [word_tokenize(new_doc[i]) for i in range(0,cnt)] # Works well as this is a single string a
+#print(nltk.pos_tag(text))
+
+## So, implementing similar concept POS tagging is done successfully in Section 2
+
+###########################################
+# 6. Replacing suitable synonyms and negative antonyms
