@@ -11,7 +11,7 @@ Cleaning Steps:
    g- word spelling correction. ex: frm to from
    h- remove punctuations
    i- removing stop words
-   j- Implement Normalization
+   j- Implement Lemmatization
    .
    .
    .
@@ -110,8 +110,8 @@ def remove_punct(data):
     print(punc_free)
     return punc_free
 #===============================================================================================
-# Normolization:
-def normalizing(data):
+# Lemmatization:
+def Lemmatizating(data):
     lemma = WordNetLemmatizer()
     normalized = " ".join(lemma.lemmatize(word) for word in data.split())
     print(normalized)
@@ -164,7 +164,7 @@ def main():
         doc = spellcheck(doc)
         doc = remove_punct(doc)
         doc = remove_Stopwords(doc)
-        doc = normalizing(doc)
+        doc = Lemmatizating(doc)
         clean_lines.append(doc)
         i=i+1
         # if i==3:
