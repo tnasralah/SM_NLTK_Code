@@ -171,7 +171,7 @@ def main():
         #     break
         print("===============================================")
     print("**********************************************************************************************************")
-    print("Cleaned File List :\n",'\n'.join(clean_lines))
+    print(filename+"file after cleaning:\n",'\n'.join(clean_lines))
 
 if __name__ == '__main__':
     main()
