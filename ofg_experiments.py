@@ -1,8 +1,10 @@
 from nltk.corpus import PlaintextCorpusReader
-from nltk.corpus.reader.util import read_line_block
-from nltk.probability import FreqDist
-from nltk.util import ngrams
 from nltk.corpus import stopwords
+from nltk.corpus.reader.util import read_line_block
+
+import gensim
+from gensim import corpora
+
 
 """
 # This is the default function for reading line blocks found in nltk.reader.corpus.util
@@ -26,8 +28,8 @@ ww = PlaintextCorpusReader(corpus_root, r'(?!README|\.).*\.txt', para_block_read
 
 # Displaying sample corpus
 print('The files in this corpus are: ', ww.fileids())
-print('There are', len(ww.words()), 'in this corpus')
-print('There are ', len(ww.paras()), 'thread discussion in this corpus')
+print('Number of words (before pre-processing) in the corpus = ', len(set(ww.words())))
+print('There are documents/paragraphs/threads in the corpus = ', len(ww.paras()))
 
 # print(ww.words())
 # print(ww.sents()[0])
@@ -83,6 +85,7 @@ print(len(filtered_paras))
 print('+++ First filetered parapgraph +++')
 print(filtered_paras[0])
 
+"""
 # Generating ngrams
 bi_grams_para = []
 tri_grams_para = []
@@ -121,5 +124,47 @@ tri_gramf = FreqDist(tri_grams)
 print('\n+++ Frequent tri_grams')
 print(tri_gramf.most_common(20))
 tri_gramf.plot(50, cumulative=True)
+"""
 
 
+# Preparing Document-Term Matrix
+
+# Creating the term dictionary of our courpus, where every unique term is assigned an index.
+dictionary = corpora.Dictionary(filtered_paras)
+
+# Converting list of documents (corpus) into Document Term Matrix using dictionary prepared above.
+doc_term_matrix = [dictionary.doc2bow(p) for p in filtered_paras]
+print('Number of items in dictionary = ', len(dictionary.iteritems()))
+print('Number of paragraphs = ', len(doc_term_matrix))
+
+"""
+# Exploring the doc_term_matrix
+# doc_term_matrix is a list of lists
+# Each document/paragraph is a list of tuples. Each tuple represents an index to the corresponding
+# term and the frequency of the term
+
+print(type(doc_term_matrix))
+
+print(len(doc_term_matrix[0]))
+print(len(doc_term_matrix[1]))
+print(len(doc_term_matrix[2]))
+print(len(doc_term_matrix[3]))
+
+print('\n+++')
+print(doc_term_matrix[0])
+print('\n+++')
+print(doc_term_matrix[1])
+print('\n+++')
+print(doc_term_matrix[2])
+print('\n+++')
+print(doc_term_matrix[0][0])
+"""
+
+
+# Running LDA Model
+# Creating the object for LDA model using gensim library
+Lda = gensim.models.ldamodel.LdaModel
+
+# Running and Training LDA model on the document term matrix.
+ldamodel = Lda(doc_term_matrix, num_topics=3, id2word=dictionary, passes=50)
+print(ldamodel.print_topics(num_topics=3, num_words=3))
