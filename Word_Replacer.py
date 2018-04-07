@@ -2,6 +2,26 @@
 from nltk.corpus import wordnet
 import re
 
+import enchant
+from nltk.metrics import edit_distance
+
+
+class SpellingReplacer(object):
+    def __init__(self, dict_name='en', max_dist=2):
+        self.spell_dict = enchant.Dict(dict_name)
+        self.max_dist = max_dist
+
+    def replace(self, word):
+        if self.spell_dict.check(word):
+            return word
+
+        suggestions = self.spell_dict.suggest(word)
+        if suggestions and edit_distance(word, suggestions[0]) <=self.max_dist:
+            return suggestions[0]
+        else:
+            return word
+
+
 replacement_patterns = [
 (r'won\'t', 'will not'),
 (r'can\'t', 'can not'),
@@ -23,7 +43,10 @@ class RegexpReplacer(object):
 			s = re.sub(pattern, repl, s)
 		return s
 
-
+replacer = SpellingReplacer()
+print (replacer.replace('cookbok'))  #cookbook
+	
+	
 class RepeatReplacer(object):
     def __init__(self):
         self.repeat_regexp = re.compile(r'(\w*)(\w)\2(\w*)')
@@ -54,3 +77,23 @@ print(replacer.replace('goose'))
 print(replacer.replace('googleee'))
 'google'
 
+---
+    cooked_parsed = doc.lower().strip().replace("\n", " ").replace(".", " ").replace("-", ' ')
+    # cooked_parsed = re.sub(r'[^\w\s]', '', cooked_parsed).replace("  "," ")
+    # # # Remove HTML tags:
+    cooked_parsed = re.sub('<[^<]+?>', '', cooked_parsed)
+    # Remove punctuation
+    normalized = result = re.sub(r"http\S+", " ", cooked_parsed)
+    normalized = result = re.sub(r"than\S+", "", normalized)
+    normalized = result = re.sub(r"@\S+", "", normalized)
+    normalized = re.sub(r'[^\w\s]', '', normalized).replace("  ", " ")
+    normalized=re.sub(r'[^a-zA-Z5\s]+', '', normalized)
+    # Standardize words (remove multiple letters):
+    normalized = ''.join(''.join(s)[:2] for _, s in itertools.groupby(normalized))
+    # normalized = TextBlob(normalized)
+    # normalized=' '.join(normalized.noun_phrases)
+    stop_free = " ".join([i for i in normalized.lower().split() if i not in stop])
+    punc_free = ''.join(ch for ch in stop_free if ch not in exclude)
+    normalized = " ".join(lemma.lemmatize(word) for word in punc_free.split())
+    # normalized = normalized.lower().strip().replace("\n", " ").replace(".", " ").replace("-", ' ')
+---
