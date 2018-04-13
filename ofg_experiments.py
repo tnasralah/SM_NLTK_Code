@@ -88,6 +88,7 @@ for p in ww.paras():
 # print(filtered_paras[0:3])
 
 
+"""
 # Generating ngrams
 uni_grams_para = []
 bi_grams_para = []
@@ -113,35 +114,81 @@ print(tri_grams_para[:1])
 uni_grams = []
 for p in uni_grams_para:
     [uni_grams.append(bg) for bg in p]
-print(uni_grams[:10])
+# print(uni_grams[:10])
 
 uni_gramf = FreqDist(uni_grams)
 print('\n+++ Frequent uni_grams')
-print(uni_gramf.most_common(20))
+print(uni_gramf.most_common(40))
 uni_gramf.plot(50, cumulative=False)
 
 # bi_grams
 bi_grams = []
 for p in bi_grams_para:
     [bi_grams.append(bg) for bg in p]
-print(bi_grams[:10])
+# print(bi_grams[:10])
 
 bi_gramf = FreqDist(bi_grams)
 print('\n+++ Frequent bi_grams')
-print(bi_gramf.most_common(20))
+print(bi_gramf.most_common(40))
 bi_gramf.plot(50, cumulative=False)
 
 # tri_grams
 tri_grams = []
 for p in tri_grams_para:
     [tri_grams.append(bg) for bg in p]
-print(tri_grams[:10])
+# print(tri_grams[:10])
 
 tri_gramf = FreqDist(tri_grams)
 print('\n+++ Frequent tri_grams')
-print(tri_gramf.most_common(20))
+print(tri_gramf.most_common(40))
 tri_gramf.plot(50, cumulative=False)
+"""
 
+#
+print('+++++++++++++ Replacing tri_grams ++++++++++++++++')
+trigram_lexicon = [['one', 'touch', 'ultra'], ['tudiabetes', 'org', 'group'],
+            ['continuous', 'glucose', 'monitoring'], ['time', 'per', 'day'],
+            ['blood', 'glucose', 'meter'], ['continuous', 'glucose', 'monitor'],
+            ['continuous', 'glucose', 'monitoring'],
+            ['blood', 'glucose', 'level'], ['low', 'blood', 'sugar'],
+            ['one', 'touch', 'meter'], ['glucose', 'monitoring', 'system'],
+            ['high', 'blood', 'sugar'], ['blood', 'sugar', 'level'],
+            ['red', 'blood', 'cell'], ['durable', 'medical', 'equipment'],
+            ['accu', 'chek', 'aviva'], ['dexcom', 'seven', 'plus'],
+            ['use', 'one', 'touch'], ['blood', 'sugar', 'control'],
+            ['tudiabetes', 'org', 'forum'], ['contour', 'next', 'link'],
+            ['letter', 'medical', 'necessity'], ['low', 'carb', 'diet'],
+            ['cross', 'blue', 'shield']]
+
+ngram_count = 3
+trigram_paras = []
+
+for p in filtered_paras:
+    if len(p) >= ngram_count:
+        trigram_p = []
+        i = 0
+        while i <= (len(p) - ngram_count):
+            if p[i:(i + ngram_count)] in trigram_lexicon:
+                trigram_p.append(p[i]+'_'+p[i+1]+'_'+p[i+2])
+                print('exchange made')
+                print(p[i] + '_' + p[i + 1] + '_' + p[i + 2])
+
+                i += 3
+            else:
+                trigram_p.append(p[i])
+                i += 1
+
+        while i < len(p):
+            trigram_p.append(p[i])
+            i += 1
+
+        trigram_paras.append(trigram_p)
+    else:
+        trigram_paras.append(p)
+
+for i in range(2):
+    print(filtered_paras[i])
+    print(trigram_paras[i])
 
 """
 # Preparing Document-Term Matrix
