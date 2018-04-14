@@ -1,3 +1,4 @@
+import nltk
 from nltk.corpus import PlaintextCorpusReader
 from nltk.corpus import stopwords
 from nltk.corpus.reader.util import read_line_block
@@ -11,20 +12,20 @@ import gensim
 from gensim import corpora
 
 
-"""
-# This is the default function for reading line blocks found in nltk.reader.corpus.util
-# This code can be used as a base for creating a replacement function. 
-# Otherwise, the code is not needed.
+from nltk.corpus import wordnet
 
-def read_line_block(stream):
-    toks = []
-    for i in range(20):
-        line = stream.readline()
-        if not line: return toks
-        toks.append(line.rstrip('\n'))
-    return toks
+def get_wordnet_pos(treebank_tag):
 
-"""
+    if treebank_tag.startswith('J'):
+        return wordnet.ADJ
+    elif treebank_tag.startswith('V'):
+        return wordnet.VERB
+    elif treebank_tag.startswith('N'):
+        return wordnet.NOUN
+    elif treebank_tag.startswith('R'):
+        return wordnet.ADV
+    else:
+        return ''
 
 
 # Reading corpus
@@ -35,60 +36,42 @@ ww = PlaintextCorpusReader(corpus_root, r'(?!README|\.).*\.txt', para_block_read
 print('The files in this corpus are: ', ww.fileids())
 print('Number of words (before pre-processing) in the corpus = ', len(set(ww.words())))
 print('There are documents/paragraphs/threads in the corpus = ', len(ww.paras()))
-
 # print(ww.words())
 # print(ww.sents()[0])
-# print(ww.paras()[0])
+# print(ww.paras()[10])
 # print(ww.raw()[:10])
 
 
-"""
-# Generating frequency distributions
-ww_freq = FreqDist(ww.words())
-print('Frequency for "dexcom" = ', ww_freq['dexcom'])
-print(ww_freq.most_common(30))
-ww_freq.plot(50, cumulative=True)
-
-# Generating ngrams
-bi_grams = ngrams(ww.words(), 2)
-print(type(bi_grams))
-print(list(bi_grams)[:10])
-"""
-
 # Defining stop words
 stopwords = stopwords.words('english')
-add_stopwords = ['http', 'https', '://', 'www', 'com', '8800', '...', '....', 'yep', '.).', '](#', '.:).', '++..', 'github']
+add_stopwords = ['http', 'https', '://', 'www', 'com', '8800', '...', '....', 'yep', '.).', '](#', '.:).',
+                  '++..', 'github', 'etc', 'also', 'org', 'gee', 'let', 'know', 'ever',
+                 'vcntr', 'falseamount', 'isig']
 [stopwords.append(st) for st in add_stopwords]
-
-
-"""
-# Filter short words
-filtered_words = [w for w in ww.words() if len(w) >= 3]
-
-# Removing stop words
-words = [w.lower() for w in filtered_words if w.lower() not in stopwords]
-print(words)
-print(len(words))
-"""
 
 
 # Filter short words and stopwords from paragraphs, and lemmatize
 filtered_paras = [[] for i in range(len(ww.paras()))]
 
-lemma = WordNetLemmatizer()
+wnl = WordNetLemmatizer()
 i = 0
 for p in ww.paras():
     for s in p:
-        for w in s:
-            if len(w) >= 3 and w.lower() not in stopwords:
-                filtered_paras[i].append(lemma.lemmatize(w.lower()))
+        ts = nltk.pos_tag(s)
+        tls = [wnl.lemmatize(w, get_wordnet_pos(pos)) for (w, pos) in ts if get_wordnet_pos(pos) != '']
+        for w in tls:
+            if len(w) >= 3 and w.isalpha() and w.lower() not in stopwords:
+                filtered_paras[i].append(w.lower())
     i += 1
-# print(len(filtered_paras))
-# print('+++ First filetered parapgraph +++')
-# print(filtered_paras[0:3])
+
+print('Number of words (after pre-processing) in the corpus = ',
+      len(set([word for p in filtered_paras for word in p])))
+print('There are documents/paragraphs/threads in the corpus = ', len(filtered_paras))
+
+print('+++ First filetered parapgraph +++')
+print(filtered_paras[0])
 
 
-"""
 # Generating ngrams
 uni_grams_para = []
 bi_grams_para = []
@@ -142,7 +125,7 @@ tri_gramf = FreqDist(tri_grams)
 print('\n+++ Frequent tri_grams')
 print(tri_gramf.most_common(40))
 tri_gramf.plot(50, cumulative=False)
-"""
+
 
 #
 print('+++++++++++++ Replacing tri_grams ++++++++++++++++')
@@ -162,7 +145,6 @@ trigram_lexicon = [['one', 'touch', 'ultra'], ['tudiabetes', 'org', 'group'],
 
 ngram_count = 3
 trigram_paras = []
-
 for p in filtered_paras:
     if len(p) >= ngram_count:
         trigram_p = []
@@ -170,8 +152,8 @@ for p in filtered_paras:
         while i <= (len(p) - ngram_count):
             if p[i:(i + ngram_count)] in trigram_lexicon:
                 trigram_p.append(p[i]+'_'+p[i+1]+'_'+p[i+2])
-                print('exchange made')
-                print(p[i] + '_' + p[i + 1] + '_' + p[i + 2])
+ #               print('exchange made')
+ #               print(p[i] + '_' + p[i + 1] + '_' + p[i + 2])
 
                 i += 3
             else:
@@ -186,9 +168,17 @@ for p in filtered_paras:
     else:
         trigram_paras.append(p)
 
-for i in range(2):
+print('Number of words (after trigram-replacement) in the corpus = ',
+      len(set([word for p in trigram_paras for word in p])))
+print('There are documents/paragraphs/threads in the corpus = ', len(trigram_paras))
+
+for i in range(1):
     print(filtered_paras[i])
     print(trigram_paras[i])
+
+print(len(set(filtered_paras[1])))
+print(len(set(trigram_paras[1])))
+
 
 """
 # Preparing Document-Term Matrix
