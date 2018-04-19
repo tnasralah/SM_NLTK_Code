@@ -4,6 +4,10 @@ from nltk.corpus import stopwords
 from nltk.corpus.reader.util import read_line_block
 
 from nltk.stem.wordnet import WordNetLemmatizer
+from nltk.stem import PorterStemmer
+
+import enchant
+from autocorrect import spell
 
 from nltk.util import ngrams
 from nltk.probability import FreqDist
@@ -11,6 +15,7 @@ from nltk.probability import FreqDist
 import gensim
 from gensim import corpora
 
+import random
 
 from nltk.corpus import wordnet
 
@@ -36,6 +41,11 @@ ww = PlaintextCorpusReader(corpus_root, r'(?!README|\.).*\.txt', para_block_read
 print('The files in this corpus are: ', ww.fileids())
 print('Number of words (before pre-processing) in the corpus = ', len(set(ww.words())))
 print('There are documents/paragraphs/threads in the corpus = ', len(ww.paras()))
+
+print("+++++++++ Sample 1000 un-filtered words +++++++++")
+words = set(ww.words())
+print(random.sample(words, 1000))
+
 # print(ww.words())
 # print(ww.sents()[0])
 # print(ww.paras()[10])
@@ -50,28 +60,56 @@ add_stopwords = ['http', 'https', '://', 'www', 'com', '8800', '...', '....', 'y
 [stopwords.append(st) for st in add_stopwords]
 
 
-# Filter short words and stopwords from paragraphs, and lemmatize
+# Filter short words and stopwords from paragraphs, spell chaeck, and lemmatize
 filtered_paras = [[] for i in range(len(ww.paras()))]
 
+dict = enchant.DictWithPWL("en_US","diab_lexicon.txt")
+typos = set()
 wnl = WordNetLemmatizer()
+ps = PorterStemmer()
+
 i = 0
+
 for p in ww.paras():
     for s in p:
         ts = nltk.pos_tag(s)
         tls = [wnl.lemmatize(w, get_wordnet_pos(pos)) for (w, pos) in ts if get_wordnet_pos(pos) != '']
         for w in tls:
             if len(w) >= 3 and w.isalpha() and w.lower() not in stopwords:
-                filtered_paras[i].append(w.lower())
+                if dict.check(w):
+                    filtered_paras[i].append(ps.stem(w.lower()))
+                else:
+                    typos.add(w.lower())
     i += 1
 
 print('Number of words (after pre-processing) in the corpus = ',
       len(set([word for p in filtered_paras for word in p])))
 print('There are documents/paragraphs/threads in the corpus = ', len(filtered_paras))
 
-print('+++ First filetered parapgraph +++')
-print(filtered_paras[0])
+print("\n\n\n+++++++++ Sample 1000 filtered words +++++++++")
+filtered_words = set([word for p in filtered_paras for word in p])
+print(random.sample(filtered_words, 1000))
+
+"""
+print("\n\n\n+++++++++ Misspelled words +++++++++")
+print('Number of misspelled word = ', len(typos))
+print(typos)
+
+corrected_typos = set()
+for w in typos:
+    corrected_typos.add((spell(w)))
+
+print("\n\n\n+++++++++ Corrected misspelled words +++++++++")
+print(corrected_typos)
+"""
 
 
+
+# print('+++ First filtered paragraph +++')
+# print(filtered_paras[0])
+
+
+"""
 # Generating ngrams
 uni_grams_para = []
 bi_grams_para = []
@@ -132,7 +170,7 @@ print('+++++++++++++ Replacing tri_grams ++++++++++++++++')
 trigram_lexicon = [['one', 'touch', 'ultra'], ['tudiabetes', 'org', 'group'],
             ['continuous', 'glucose', 'monitoring'], ['time', 'per', 'day'],
             ['blood', 'glucose', 'meter'], ['continuous', 'glucose', 'monitor'],
-            ['continuous', 'glucose', 'monitoring'],
+            ['continuous', 'glucose', 'monitoring'], ['blood', 'glucose', 'meter'],
             ['blood', 'glucose', 'level'], ['low', 'blood', 'sugar'],
             ['one', 'touch', 'meter'], ['glucose', 'monitoring', 'system'],
             ['high', 'blood', 'sugar'], ['blood', 'sugar', 'level'],
@@ -180,7 +218,52 @@ print(len(set(filtered_paras[1])))
 print(len(set(trigram_paras[1])))
 
 
+#
+print('+++++++++++++ Replacing bi_grams ++++++++++++++++')
+bigram_lexicon = [['blood', 'sugar'], ['blood', 'glucose'], ['test', 'strip'], ['insurance', 'company'],
+                  ['insulin', 'pump'], ['basal', 'rate'], ['finger', 'stick'], ['apple', 'watch'],
+                  ['low', 'carb'], ['use', 'sensor'], ['glucose', 'level'], ['sensor', 'transmitter'],
+                  ['insurance', 'cover']]
+
+ngram_count = 2
+bigram_paras = []
+for p in filtered_paras:
+    if len(p) >= ngram_count:
+        bigram_p = []
+        i = 0
+        while i <= (len(p) - ngram_count):
+            if p[i:(i + ngram_count)] in bigram_lexicon:
+                bigram_p.append(p[i]+'_'+p[i+1])
+ #               print('exchange made')
+ #               print(p[i] + '_' + p[i + 1] + '_' + p[i + 2])
+
+                i += ngram_count
+            else:
+                bigram_p.append(p[i])
+                i += 1
+
+        while i < len(p):
+            bigram_p.append(p[i])
+            i += 1
+
+        bigram_paras.append(bigram_p)
+    else:
+        bigram_paras.append(p)
+
+print('Number of words (after bigram-replacement) in the corpus = ',
+      len(set([word for p in bigram_paras for word in p])))
+print('There are documents/paragraphs/threads in the corpus = ', len(bigram_paras))
+
+for i in range(1):
+    print(trigram_paras[i])
+    print(bigram_paras[i])
+
+print(len(set(trigram_paras[1])))
+print(len(set(bigram_paras[1])))
+
 """
+
+
 # Preparing Document-Term Matrix
 
 # Creating the term dictionary of our courpus, where every unique term is assigned an index.
@@ -196,6 +279,9 @@ print('Number of paragraphs = ', len(doc_term_matrix))
 # Each document/paragraph is a list of tuples. Each tuple represents an index to the corresponding
 # term and the frequency of the term
 
+
+
+"""
 print(type(doc_term_matrix))
 
 print(len(doc_term_matrix[0]))
@@ -213,12 +299,11 @@ print('\n+++')
 print(doc_term_matrix[0][0])
 """
 
-"""
+
 # Running LDA Model
 # Creating the object for LDA model using gensim library
 Lda = gensim.models.ldamodel.LdaModel
 
 # Running and Training LDA model on the document term matrix.
-ldamodel = Lda(doc_term_matrix, num_topics=3, id2word=dictionary, passes=50)
-print(ldamodel.print_topics(num_topics=3, num_words=3))
-"""
+ldamodel = Lda(doc_term_matrix, num_topics=20, id2word=dictionary, passes=50)
+print(ldamodel.print_topics(num_topics=20, num_words=5))
