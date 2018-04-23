@@ -1,25 +1,44 @@
-## Text Data Cleaning
+# Import
+import nltk
+import re
+from nltk.corpus import wordnet
+import enchant
+from nltk.metrics import edit_distance
+from nltk.stem import WordNetLemmatizer
+from nltk import word_tokenize
+import pandas as pd
+import os
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer, TfidfTransformer
 
-## Importing the discussion as the list from local directory
-docs=[]
-filepath="J:/DSU/CITI/s_discussions_DT.txt"
-cnt=0
-with open(filepath) as f:
+# Text Data Cleaning
+# Importing the discussion as the list from local directory
+docs = []
+path = "J:/DSU/CITI/s_discussions_DT.txt"
+cnt = 0
+with open(path) as f:
     for line in f:
         docs.append(line)
-        cnt = cnt+ 1
-        print (line)
-print (cnt)
+        cnt = cnt + 1
+        print(line)
+print(cnt)
 
 print(type(docs))
 # So, looking at the output, there is 239 of the discussions in the list
-## So, for the text preprocessing and cleaning we carried out the following steps:
+# So, for the text pre-processing and cleaning we carried out the following steps:
 
+######################################################################################################
+# POS tagging and storing if the tags is Proper Noun
+tagged_sent = ['None']*cnt
+for i in range(0,cnt):
+    tagged_sent[i] = nltk.pos_tag(docs[i].split())
+
+proper_nouns = [word for word, pos in tagged_sent[i] if pos == 'NNP']
+
+print(tagged_sent)
+print(proper_nouns)
 ###################################################################################################
-## 1. Correcting the words (haven't....have not, I'm...I am etc.)
-## Some replacement patterns created, we can add further if our requirement increases
-import re
-
+# 1. Correcting the words (haven't....have not, I'm...I am etc.)
+# Some replacement patterns created, we can add further if our requirement increases
 replacement_patterns = [
     (r'won\'t', 'will not'),
     (r'can\'t', 'can not'),
@@ -33,8 +52,8 @@ replacement_patterns = [
     (r'(\w+)\'re', '\g<1> are'),
     (r'(\w+)\'d', '\g<1> would'),
     (r'&', ' and ')
-                                # Replacing symbols into meaningful words
 ]
+# Replacing symbols into meaningful words
 
 
 class RegexpReplacer(object):
@@ -47,12 +66,14 @@ class RegexpReplacer(object):
             s = re.sub(pattern, repl, s)
         return s
 
+
 reg_replacer = RegexpReplacer()
 
-## Reference from VIP book
-## print(replacer.replace("I should've done that thing I didn't do, but it's nice. can't is a contraction")) ## Works well
+# Reference from VIP book
+# print(replacer.replace("I should've done that thing I didn't do, but it's nice. can't is a contraction"))
+# Works well
 
-## Implement in our doc list
+# Implement in our doc list
 new_doc = [reg_replacer.replace(docs[i]) for i in range(0, cnt)]
 print('Original Document')
 print(docs[0])
@@ -60,15 +81,14 @@ print(docs[0])
 print("Regular Expression Replaced Document as I'm changed to I am")
 print(new_doc[0])
 
-## Works well as we see I'm changed to I am
+# Works well as we see I'm changed to I am
 
-## Looking at the document we can even replace cgm, bp, US  to corresponding long form.. but do we really require..???
+# Looking at the document we can even replace cgm, bp, US  to corresponding long form.. but do we really require..???
 
 #############################################################################
-##2. Long words replacement
-## e,g looooove...love, ....... to .  So, this will create a good structure
+# 2. Long words replacement
+# e,g looooove...love, ....... to .  So, this will create a good structure
 
-from nltk.corpus import wordnet
 
 class RepeatReplacer(object):
     def __init__(self):
@@ -76,7 +96,7 @@ class RepeatReplacer(object):
         self.repl = r'\1\2\3'
 
     def replace(self, word):
-        if wordnet.synsets(word):
+        if wordnet.synsets(word) or word in proper_nouns:
             return word
         repl_word = self.repeat_regexp.sub(self.repl, word)
 
@@ -89,9 +109,7 @@ class RepeatReplacer(object):
 rc_replacer = RepeatReplacer()
 
 ##################################################################################
-## 3. Now, the next things is to do the spelling correction
-import enchant
-from nltk.metrics import edit_distance
+# 3. Now, the next things is to do the spelling correction
 
 
 class SpellingReplacer(object):
@@ -109,66 +127,66 @@ class SpellingReplacer(object):
         else:
             return word
 
+
 sp_replacer = SpellingReplacer()
 
 ################################################
-#Implementing all above methods
+# Implementing all above methods
+#################################################
 for i in range(0,cnt):
-    #Removing html address referred to url
-    new_doc[i]=re.sub(r'http\S+', 'url', new_doc[i])
-    new_doc[i]=re.sub(r'www\S+', 'url', new_doc[i])   #successfully replaced
+    # Removing html address referred to url
+    new_doc[i] = re.sub(r'http\S+', 'url', new_doc[i])
+    new_doc[i] = re.sub(r'www\S+', 'url', new_doc[i])   # successfully replaced
 
 print('http and www replaced to url')
 print(new_doc[0])
 ##############################################
-
-for i in range(0,cnt):
-    #separating into words based on white space
-    new_doc[i]= re.findall(r'\w+', new_doc[i])
+for i in range(0, cnt):
+    # separating into words based on white space
+    new_doc[i] = re.findall(r'\w+', new_doc[i])
 
 print('After separating into individual words')
 print(new_doc[0])
-
 ############################################
-for i in range(0,cnt):
-    #replacing looove to love
+for i in range(0, cnt):
+    # replacing looove to love
     new_doc[i] = [rc_replacer.replace(words) for words in new_doc[i]]
 print('Replacing repeated character as seen twooo to two')
 print(new_doc[0])
 #################################################
 for i in range(0,cnt):
-    #checking and correcting spelling
-    new_doc[i] = [sp_replacer.replace(words) for words in new_doc[i]]
+    # if (words not in proper nouns):
+    new_doc[i] = [sp_replacer.replace(words) for words in new_doc[i] if words not in proper_nouns]
 
 print('Replacing wrong spelling as seen wlil to will')
 print(new_doc[0])
 
-## issues...works well as expected..but seen that apps...changed to pas Gloko changed to Gloom
+# issues...works well as expected..but seen that apps...changed to pas Glooko changed to Gloom
 # So, need of customization of dictionary in wordnet.
+# Other options as Peter Norvig, Autocorrect are also explored in Spell_check.py
 
-## Lemmatization
-from nltk.stem import WordNetLemmatizer
+# Lemmatization
 lemmatizer = WordNetLemmatizer()
-
-for i in range(0,cnt):
+for i in range(0, cnt):
     # lemmatization
     new_doc[i] = [lemmatizer.lemmatize(words) for words in new_doc[i]]
 
 print('Doc after lemmatization')
 print(new_doc[0])   # seems working good as companies changed to company
 
-## POS tagging
-import nltk
-for i in range(0,cnt):
-    new_doc[i]=nltk.pos_tag(new_doc[i])
-print('Parts of sppech tagged')
-print(new_doc[150][0])
+# POS tagging
+pos_tagged = [None]*cnt
+for i in range(0, cnt):
+    pos_tagged[i] = nltk.pos_tag(new_doc[i])
+print('Parts of speech tagged')
+print(pos_tagged[15])
 
-## Chunking and chinking
+# Chunking and chinking
 
 
-#So, if we thing the cleaning and preprocessing process is completed, we can merge to make a list of document as original docs
-#######
+# So, if we thing the cleaning and pre-processing process is completed,
+# we can merge to make a list of document as original docs
+
 # cleaned_doc=[]
 # def list_sent(sentence, sent_str):
 #     for i in sentence:
@@ -183,25 +201,68 @@ print(new_doc[150][0])
 #
 # print(new_doc[0][507])
 #
-# from nltk.tag import pos_tag
-#
-# sentence = "Michael Jackson likes to eat at McDonalds")
-# tagged_sent = nltk.pos_tag(sentence.split())
-#     # [('Michael', 'NNP'), ('Jackson', 'NNP'), ('likes', 'VBZ'), ('to', 'TO'), ('eat', 'VB'), ('at', 'IN'), ('McDonalds', 'NNP')]
-#
-# propernouns = [word for word, pos in tagged_sent if pos == 'NNP']
-#     # ['Michael','Jackson', 'McDonalds']
-#
-# import pandas as pd
-# class LemmaTokenizer(object):
-#     def __init__(self):
-#         self.wnl = WordNetLemmatizer()
-#     def __call__(self, doc):
-#         return [self.wnl.lemmatize(t) for t in word_tokenize(doc)]
-#
-# from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer, TfidfTransformer
-# vectorizer = TfidfVectorizer(tokenizer=LemmaTokenizer(), stop_words = 'english')
-# X = vectorizer.fit_transform(new_doc[0])
-# df_tf = pd.DataFrame(X.todense(), columns=vectorizer.get_feature_names())
-# print(df_tf)
+
+
+class LemmaTokenizer(object):
+    def __init__(self):
+        self.wnl = WordNetLemmatizer()
+
+    def __call__(self, doc):
+        return [self.wnl.lemmatize(t) for t in word_tokenize(doc)]
+
+
+new_str = [None]*cnt
+for i in range(0, cnt):
+    new_str[i] = (' '.join(word for word in new_doc[i]))
+print(new_str)
+
+
+os.chdir('J:/DSU/CITI')
+the_file = open('clean_file.txt', 'w')
+for item in new_str:
+    the_file.write("%s\n" % item)
+
+vectorizer = TfidfVectorizer(tokenizer=LemmaTokenizer(), stop_words='english')
+# works well for new_doc[0] but doesn't work for new_doc because of list of list
+X = vectorizer.fit_transform(new_str)
+print(X)
+df_tf = pd.DataFrame(X.todense(), columns=vectorizer.get_feature_names())
+print(df_tf)
+
+# convert words to lower case
+lower = map(str.lower, new_str)
+print(list(lower))
+# replace punctuation with space
+no_punc = map(lambda x: re.sub("[^a-z]", " ", x), lower)
+
+# tokenize each document
+tokenized = map(nltk.word_tokenize, no_punc)
+
+# pos tag teach document
+tagged = map(nltk.pos_tag, tokenized)
+
+# remove stopwords
+# stopwords can only be removed after POS tags are generated. Otherwise, it will influence the POS tagging results.
+stopwords = nltk.corpus.stopwords.words("english")
+def remove_stopwords(doc):
+    out = []
+    for word in doc:
+        if word[0] not in stopwords:
+            out.append(word)
+    return out
+
+
+no_stopwords = map(remove_stopwords, tagged)
+
+print(no_stopwords)
+
+# convert the lists of tagged words to string so that scikit-learn can tokenize them
+tagged_docs = map(str, no_stopwords)
+print(tagged_docs)
+
+# vectorized
+vectorizer = CountVectorizer(token_pattern=r"\('[^ ]+', '[^ ]+'\)", lowercase=False)
+X = vectorizer.fit_transform(tagged_docs)
+df_tf = pd.DataFrame(X.todense(), columns=vectorizer.get_feature_names())
+df_tf
 
